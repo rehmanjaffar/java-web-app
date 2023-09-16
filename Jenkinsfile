@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'sudo ./mvnw clean install'
+        sh './mvnw clean install'
       }
     }
     stage('Upload to Artifactory') {
