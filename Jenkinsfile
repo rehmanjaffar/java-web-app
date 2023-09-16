@@ -11,15 +11,14 @@ pipeline {
       }
     }
     stage('Upload to Artifactory') {
-      agent {
-        docker {
-          image 'releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0' 
-          reuseNode true
-        }
-      }
-      steps {
-        sh 'jfrog rt upload --url http://74.235.136.21:8081/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/demo-0.0.1-SNAPSHOT.jar java-web-app/'
-      }
-    }
+  steps {
+    // Pull the image using ctr or another containerd CLI tool
+    sh 'ctr image pull releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0'
+    
+    // Run the container and execute commands
+    sh 'ctr run --rm releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0 mycontainer jfrog rt upload --url http://74.235.136.21:8081/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/demo-0.0.1-SNAPSHOT.jar java-web-app/'
+  }
+}
+
   }
 }
