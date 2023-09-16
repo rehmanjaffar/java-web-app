@@ -12,7 +12,6 @@ pipeline {
     }
     stage('Upload to Artifactory') {
   steps {
-   sh 'usr/bin/ctr -v'
     // Pull the image using ctr or another containerd CLI tool
     sh ' /usr/bin/ctr image pull releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0'
     
