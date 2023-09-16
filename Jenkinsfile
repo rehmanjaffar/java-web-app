@@ -12,6 +12,7 @@ pipeline {
     }
     stage('Upload to Artifactory') {
   steps {
+    sh 'apt-get update && apt-get install -y sudo'
     // Pull the image using ctr or another containerd CLI tool
     sh 'sudo /usr/bin/ctr image pull releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0'
     
